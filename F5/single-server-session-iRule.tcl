@@ -147,7 +147,8 @@ when HTTP_REQUEST {
           (($path contains ".nsf")
           or ($path contains "/verse/userinfo")
           or ($path contains "/verse/checksession")
-          or ($path contains "/verse/userredirectinfo"))
+          or ($path contains "/verse/userredirectinfo")
+          or ($path contains "/verse/ical"))
           and !($tentativeNSFPath contains "Forms9.nsf")
       } {
         set isPoolDependentRequest 1
