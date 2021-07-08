@@ -113,11 +113,12 @@ when HTTP_REQUEST {
     set authPool [lindex $fields 0]
     set encodedAuthMemberIP [lindex $fields 1]
     set authPoolMemberPort [expr [lindex $fields 2]/256]
-    set hexDecodedIP [format %X $encodedAuthMemberIP]
-    scan $hexDecodedIP "%2x%2x%2x%2x" l m n o
+    set hexDecodedIP [format %08X $encodedAuthMemberIP]
+    scan $hexDecodedIP "%02x%02x%02x%02x" l m n o
     set decodedAuthMemberIP "$o.$n.$m.$l"
+    call logger "REQ" $requestedURI "using ip, port: $decodedAuthMemberIP $authPoolMemberPort"
     pool $authPool member $decodedAuthMemberIP $authPoolMemberPort
-    call logger "REQ" $requestedURI "using pool, ip, port: $authPool $decodedAuthMemberIP $authPoolMemberPort"
+    call logger "REQ" $requestedURI "using pool: $authPool"
     set targetPool $authPool
   } else {
     ##### 1.b We are NOT in the middle of authentication against a Domino server
