@@ -152,7 +152,6 @@ when HTTP_REQUEST {
           or ($path contains "/verse/ical"))
           or ($path contains "/verse/archive"))
           or ($path contains "/verse/delegation"))
-          or ($path contains "/verse/delegation/archive"))
           and !($tentativeNSFPath contains "Forms9.nsf")
       } {
         set isPoolDependentRequest 1
